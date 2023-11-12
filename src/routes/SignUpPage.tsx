@@ -3,7 +3,7 @@ import { addDoc, getDocs, query, where } from "firebase/firestore";
 import { TextField, Stack, Grid, Button, Checkbox, FormControlLabel, Alert } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-import { ref } from '../App';
+import { userDbRef } from '../App';
 
 const INPUTWIDTH = 300;
 
@@ -43,7 +43,7 @@ export default function SignUpPage() {
     }
 
     async function checkExists() {
-        const snapshot = await getDocs(query(ref, where("email", "==", email)));
+        const snapshot = await getDocs(query(userDbRef, where("email", "==", email)));
         if(!snapshot.empty) return true;
         else return false;
     }
@@ -60,7 +60,7 @@ export default function SignUpPage() {
         console.log("Submitting form");
 
         try {
-            const snapshot = await addDoc(ref, {
+            const snapshot = await addDoc(userDbRef, {
             email: email,
             password: password,
             });

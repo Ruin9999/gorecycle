@@ -25,6 +25,5 @@ export default createTheme({
             main: "#67B76A",
             contrastText: "#FFFFFF",
         },
-
     },
 })

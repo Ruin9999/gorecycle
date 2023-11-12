@@ -16,6 +16,8 @@ import SignupPage from './routes/SignUpPage';
 import NavigationPage from "./routes/NavigationPage";
 import AdminPage from "./routes/AdminPage";
 import UploadPage from './routes/UploadPage';
+import GoogleMapPage from "./routes/GoogleMapPage";
+import Bin from "./routes/Bin";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +47,14 @@ const router = createBrowserRouter([
   {
     path: "/upload",
     element: <UploadPage />
+  },
+  {
+    path: "/googlemap",
+    element: <GoogleMapPage />
+  },
+  {
+    path: "bin",
+    element: <Bin />
   }
 ])
 
@@ -59,7 +69,8 @@ const firebaseConfig = {
 }
 
 const app = initializeApp(firebaseConfig);
-export const ref  = collection(getFirestore(app), 'users');
+export const userDbRef  = collection(getFirestore(app), 'users');
+export const binDbRef = collection(getFirestore(app), 'bins');
 
 //getAnalytics(app);
 

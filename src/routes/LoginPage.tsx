@@ -3,7 +3,7 @@ import { getDocs, query, where } from "@firebase/firestore";
 import { TextField, Stack, Grid , Button, Checkbox, FormControlLabel, Alert } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-import { ref } from "../App";
+import { userDbRef } from "../App";
 
 const INPUTWIDTH = 300;
 
@@ -46,7 +46,7 @@ export default function LoginPage() {
 
         console.log("Submitting form");
 
-        const snapshot = await getDocs(query(ref, where("email", "==", email), where("password", "==", password)));
+        const snapshot = await getDocs(query(userDbRef, where("email", "==", email), where("password", "==", password)));
         
         if (snapshot.empty) {
             setInvalidForm(true);
