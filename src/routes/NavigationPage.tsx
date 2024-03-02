@@ -42,7 +42,8 @@ export default function NavigationPage() {
             img="battery-only.png"
             alt="battery only"
             title="Battery Only"
-            description='Batteries only. This includes button cell batteries, AA, AAA, AAAA, C, D and 9-volt only)'
+            description='Batteries only. This includes button cell batteries, AA, AAA, AAAA, C, D and 9-volt only) ICT equipment not accepted,
+            Bulbs and lamps not accepted.'
             href="/googlemap?dustbin=Batteriesonly"/>
         </Stack>
     )

@@ -41,6 +41,11 @@ export default function UploadPage() {
 
     function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
         if(e.target.files == null) return;
+
+        if(!isImage(e.target.files[0])) {
+            alert("Please upload an image file!");
+            return;
+        }
         setImageFile(e.target.files[0]);
     }
 
@@ -49,6 +54,16 @@ export default function UploadPage() {
         await uploadDetails();
         alert("Successfully uploaded details!");
         navigate("/navigation");
+    }
+
+    function getFileExtension(filename: string) {
+        return filename.split('.').pop();
+    }
+
+    function isImage(file : File) {
+        const extension = getFileExtension(file.name);
+        if(extension == null) return false;
+        return extension.toLowerCase() == "jpg" || extension.toLowerCase() == "jpeg" || extension.toLowerCase() == "png";
     }
 
     async function uploadDetails() { 
@@ -78,21 +93,21 @@ export default function UploadPage() {
     }
 
     return(
-        <Grid container justifyContent="center" justifyItems="center" sx={{minHeight: "80vh"}}>
-            <Grid item xs={3}>
+        <Grid container justifyContent="center" justifyItems="center" sx={{flexDirection: { xs: "column", md: "row"}}}>
+            <Grid item xs={12} md={5}>
                 <Typography variant="h6">Location:</Typography>
                 <Typography variant="body1">{location}</Typography>
                 <Typography variant="h6">Address:</Typography>
                 <Typography variant="body1">{address}</Typography>
             </Grid>
-            <Grid item xs={5}>
+            <Grid item xs={12} md={7}>
                 <Stack spacing={2}>
                     <Button variant="outlined" component="label" sx={UploadImageButtonStyle}>
                         { 
                             imageFile == null ? <>
                             Upload Image
                             <UploadSharpIcon color="inherit"/>
-                            <input color="inherit" onChange={handleFileChange} type="file" hidden/> </>: 
+                            <input color="inherit" onChange={handleFileChange} type="file" accept="image/jpeg, image/jpg, image/png" hidden/> </>: 
                             <img src={URL.createObjectURL(imageFile)} alt="Uploaded Image" style={{ maxWidth: "100%", maxHeight: "100%" }} />
                         }
                     </Button>

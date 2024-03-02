@@ -31,12 +31,12 @@ export default function AdminPage() {
         await addDoc(binDbRef, {
             address: doc.data().address,
             category: doc.data().category,
-            comment: doc.data().comment,
             location: doc.data().location,
             status: 0
         });
 
         alert(`Bin at ${binLocation} has been marked as cleared!`);
+        window.location.href = "/admin";
     }
 
     function handleOnView(binLocation: string) {
@@ -70,7 +70,7 @@ export default function AdminPage() {
                 case "ict":
                     ictList.push(element);
                     break;
-                case "batteriesandlamps":
+                case "Batteriesandlamps":
                     batteriesandlamps.push(element);
                     break;
                 case "shells":
@@ -79,7 +79,7 @@ export default function AdminPage() {
                 case "virogreen":
                     virogreen.push(element);
                     break;
-                case "batteriesonly":
+                case "Batteriesonly":
                     batteryList.push(element);
                     break;
             }
@@ -92,6 +92,11 @@ export default function AdminPage() {
         setBatteryList(batteryList);
 
     }, [binInformation]);
+
+    //Handle unauthorized access
+    if(localStorage.getItem("isLoggedIn") !== "true") navigate("/login")
+    else if(localStorage.getItem("isAdmin") === "false" || localStorage.getItem("isAdmin") === null)
+            navigate("/navigation");
 
     return (
         <Grid container justifyContent="center" alignContent="center" sx={{paddingBottom: "50px;"}}>

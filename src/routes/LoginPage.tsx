@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { getDocs, query, where } from "@firebase/firestore";
 import { TextField, Stack, Grid , Button, Checkbox, FormControlLabel, Alert } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 
 import { userDbRef } from "../App";
 
@@ -20,8 +19,6 @@ export default function LoginPage() {
     const [passwordError, setPasswordError] = useState(false);
     const [isInvalidForm, setInvalidForm] = useState(false);
 
-    const navigate = useNavigate();
-
     function handleEmail() {
         if (!isEmail(email)) {
             setEmailError(true);
@@ -39,7 +36,7 @@ export default function LoginPage() {
     async function handleSubmit() {
         setInvalidForm(false);
 
-        if(!email || password || emailError || passwordError) {
+        if(!email || !password || emailError || passwordError) {
             setInvalidForm(true);
             return;
         }
@@ -52,7 +49,23 @@ export default function LoginPage() {
             setInvalidForm(true);
             return;
         }
-        navigate("/navigation");
+
+        //Scuffed redirecting because useNavigation doesn't refresh the navbar when I use it
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("isAdmin", snapshot.docs[0].data().isAdmin);
+
+        if(!snapshot.docs[0].data().isAdmin) {
+            window.location.href = "/navigation";
+        } else {
+            window.location.href = "/admin";
+        }
+
+    }
+
+    //Handle unauthorized access
+    if(localStorage.getItem("isLoggedIn") === "true") {
+        if(localStorage.getItem("isAdmin")) window.location.href = "/admin";
+        else  window.location.href = "/navigation";
     }
 
     return (

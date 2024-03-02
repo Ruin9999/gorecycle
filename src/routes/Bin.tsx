@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { getDocs, query, where, DocumentData } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import { Grid, Typography, Stack } from "@mui/material";
+import { Grid, Typography, Stack, Button } from "@mui/material";
 
 import { binDbRef } from "../App";
 
@@ -38,6 +38,10 @@ export default function Bin() {
                     <>
                         <Typography variant="h4">Address:</Typography>
                         <Typography variant="h6">{information?.address}</Typography>
+                    </>
+                    <>
+                        <Typography variant="h4">Comments:</Typography>
+                        <Typography variant="h6">{information?.comment}</Typography>
                     </>
                     <>
                         <Typography variant="h4">Status:</Typography>

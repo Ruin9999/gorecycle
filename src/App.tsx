@@ -53,7 +53,7 @@ const router = createBrowserRouter([
     element: <GoogleMapPage />
   },
   {
-    path: "bin",
+    path: "/bin",
     element: <Bin />
   }
 ])
@@ -79,7 +79,7 @@ function App() {
     <ThemeProvider theme={THEME}>
       <Navbar />
       <div style={{ paddingLeft: '50px', paddingRight: '50px' }}>
-        <RouterProvider router={router} />
+        <RouterProvider router={router} fallbackElement={ <LandingPage />} />
       </div>
     </ThemeProvider>
   )

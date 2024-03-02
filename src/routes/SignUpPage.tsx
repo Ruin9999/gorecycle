@@ -63,9 +63,10 @@ export default function SignUpPage() {
             const snapshot = await addDoc(userDbRef, {
             email: email,
             password: password,
+            isAdmin: false,
             });
             
-            navigate("/navigation");
+            navigate("/");
             console.log("Document written with ID: ", snapshot.id); 
         } catch (e) {
             console.log("Error adding document: ", e);
